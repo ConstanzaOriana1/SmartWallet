@@ -14,7 +14,7 @@ contract SmartWallet is Ownable {
     bool whitelist;
 
     event transfer (address owner, address to, address token, uint256 value);
-    event transferBatch (address owner, address [] to, address [] token, uint256 [] value);
+    event batchTransfered (address owner, address [] to, address [] token, uint256 [] value);
 
    modifier whenNotPaused () {
         require(true,"contract is paused");
@@ -75,7 +75,7 @@ require(
  /// @param uint8 v, bytes32 r, bytes32 s - Validates secp256k1 signature
 
 
-function transferBatch(
+function transferBatch (
     address owner,
    address [] to, 
    address [] token, 
@@ -96,7 +96,7 @@ IsWhitelisted(to) {
  /// @param uint256 [] value - List of amount to transfer
  /// @param uint8 v, bytes32 r, bytes32 s - Validates secp256k1 signature
 function _transferBatch (
-    address owner,
+address owner,
    address [] to, 
    address [] token, 
    uint256 [] value,
@@ -120,7 +120,7 @@ require(
     }
     
 
-    emit transferBatch (owner, to, token, value);
+    emit batchTransfered (owner, to, token, value);
 
 }
 
