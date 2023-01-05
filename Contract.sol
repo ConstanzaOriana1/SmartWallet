@@ -3,12 +3,22 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-IMPORT "@openzeppelin/contracts/interfaces/IERC20.sol";
+import "@openzeppelin/contracts/interfaces/IERC20.sol";
 
 contract SmartWallet {
     ERC20 public token;
 
-    event transfer (address _from, addres _to, address _token, uint256 _value);
+    event transfer (address owner, addres to, address token, uint256 value);
+
+
+ /// @notice Create smart wallet in order to the contract/wallet receives a metadata transaction from the user (gasless) and can transform that data into the execution of a function that has token, amount and recipient as parameters
+ /// @dev Juan Cruz Suarez - Matias Zapata - Constanza Oriana
+ /// @param address owner - Sender account 
+ /// @param address to - Receiver account 
+ /// @param address token - 
+ /// @param uint256 value - Amount of tokens to transfer
+ /// @param uint8 v, bytes32 r, bytes32 s - Validates secp256k1 signature
+
 
 function transferToken(
     address owner,
@@ -42,6 +52,9 @@ function _transferToken (
 require(
     EIP712.recover(DOMAIN_SEPARATOR, v, r, s, data) == owner, "Invalid signature");
     token.transfer(to, value);
-    //Ingresar evento aca?
+
+    //Ingresar event aca?
+    //emit transfer (owner, to, token, value);
+
 }
 }
